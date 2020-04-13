@@ -211,7 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &813401013
 GameObject:
@@ -289,13 +289,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813401013}
-  m_LocalRotation: {x: -0, y: 0.122706145, z: -0, w: -0.9924431}
-  m_LocalPosition: {x: 445.48, y: 42.24, z: 482.49}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 3.09, z: -7.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 345.90298, z: 0}
+  m_Father: {fileID: 1790063130}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1047530371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -346,7 +346,7 @@ PrefabInstance:
     - target: {fileID: 3078946771409442868, guid: 07456e8f239d66a408d5943fc81aba11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3078946771409442868, guid: 07456e8f239d66a408d5943fc81aba11,
         type: 3}
@@ -403,7 +403,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595766517
 GameObject:
@@ -524,7 +524,7 @@ Transform:
   m_Children:
   - {fileID: 1595766518}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790063126 stripped
 GameObject:
@@ -546,7 +546,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1790063128
 CapsuleCollider:
@@ -575,7 +575,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 1150190211}
-  otherLocation: {x: 500, y: 50, z: 500}
+  liamRigidbody: {fileID: 1790063127}
+  moveSpeed: 5
+  turnSpeed: 20
+  jumpForce: 5
+--- !u!4 &1790063130 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3103360864832922283, guid: b02a5621f8c14884b89ff26f4c2da15d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7260957654393881826}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7260957654393881826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -626,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 3103360864832922283, guid: b02a5621f8c14884b89ff26f4c2da15d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3103360864832922283, guid: b02a5621f8c14884b89ff26f4c2da15d,
         type: 3}
