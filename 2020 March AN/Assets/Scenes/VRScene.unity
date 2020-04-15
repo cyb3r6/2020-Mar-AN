@@ -543,8 +543,8 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -575,10 +575,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {fileID: 1150190211}
-  liamRigidbody: {fileID: 1790063127}
   moveSpeed: 5
   turnSpeed: 20
-  jumpForce: 5
+  jumpForce: 10
 --- !u!4 &1790063130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3103360864832922283, guid: b02a5621f8c14884b89ff26f4c2da15d,
