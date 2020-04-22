@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5776692358166398394}
   - component: {fileID: 5776692358166398395}
   - component: {fileID: 5776692358166398399}
+  - component: {fileID: 9190074426869832404}
   m_Layer: 0
   m_Name: Paintball
   m_TagString: Untagged
@@ -110,3 +111,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9190074426869832404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776692358166398392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6174f61eb33b924db3660e7025a0015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paints:
+  - {fileID: 2100000, guid: 166f9d2467b34f74fbf9a29b21653304, type: 2}
+  - {fileID: 2100000, guid: 840412ea596ed1f4e8b9f23b88183920, type: 2}
+  - {fileID: 2100000, guid: 7ae09317f14cee048b549b9d460eea3c, type: 2}
+  - {fileID: 2100000, guid: 00b616decbb5c6b4eabd3058ce045e10, type: 2}
+  - {fileID: 2100000, guid: 1f245cb682be00947b2dc561d27ef9ec, type: 2}
