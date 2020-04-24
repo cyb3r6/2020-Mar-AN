@@ -13,12 +13,14 @@ public class Paintball : MonoBehaviour
         if(collision.collider.tag == "Paintable")
         {
             collision.collider.GetComponent<Renderer>().material = paints[paintIndex];
-            paintIndex++;
+            paintIndex = Random.Range(0, paints.Count-1);
 
-            if(paintIndex == paints.Count)
-            {
-                paintIndex = 0;
-            }
+            //paintIndex++;
+
+            //if(paintIndex == paints.Count)
+            //{
+            //    paintIndex = 0;
+            //}
         }
     }
 

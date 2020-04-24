@@ -7,6 +7,7 @@ public class ShootPaintball : MonoBehaviour
     public GameObject paintballPrefab;
     public Transform spawnPoint;
     public float shootingForce;
+    public ShotCounter shotCounterScript;
 
     void Update()
     {
@@ -14,7 +15,8 @@ public class ShootPaintball : MonoBehaviour
         {
             GameObject tempPaintball = Instantiate(paintballPrefab, spawnPoint.position, spawnPoint.rotation);
             tempPaintball.GetComponent<Rigidbody>().AddForce(tempPaintball.transform.forward * shootingForce);
-            //Destroy(tempPaintball, 5f);
+            Destroy(tempPaintball, 5f);
+            shotCounterScript.shotsFired++;
         }
     }
 }
