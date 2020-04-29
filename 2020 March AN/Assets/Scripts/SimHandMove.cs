@@ -42,8 +42,8 @@ public class SimHandMove : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
-            liamRigidbody.AddForce(Vector3.up * jumpForce);
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            //liamRigidbody.AddForce(Vector3.up * jumpForce);
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
