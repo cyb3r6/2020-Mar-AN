@@ -8,6 +8,8 @@ public class SimHandGrab : MonoBehaviour
     public GameObject heldObject;       // what we're holding
     public Transform snapPosition;
 
+    public bool isButtonPressed;        // switched on/off when we have a heldobject and we're triggering a behavior
+
     private void OnTriggerEnter(Collider other)
     {
         collidingObject = other.gameObject;
@@ -41,7 +43,16 @@ public class SimHandGrab : MonoBehaviour
             {
                 Release();
             }
+        }
 
+        if(heldObject && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            heldObject.BroadcastMessage("Interaction");
+            isButtonPressed = true;
+        }
+        if (heldObject && Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            isButtonPressed = false;
         }
     }
 
@@ -59,4 +70,5 @@ public class SimHandGrab : MonoBehaviour
         heldObject.transform.SetParent(null);
         heldObject = null;
     }
+
 }

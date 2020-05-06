@@ -11,12 +11,20 @@ public class ShootPaintball : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            GameObject tempPaintball = Instantiate(paintballPrefab, spawnPoint.position, spawnPoint.rotation);
-            tempPaintball.GetComponent<Rigidbody>().AddForce(tempPaintball.transform.forward * shootingForce);
-            Destroy(tempPaintball, 5f);
-            shotCounterScript.shotsFired++;
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    GameObject tempPaintball = Instantiate(paintballPrefab, spawnPoint.position, spawnPoint.rotation);
+        //    tempPaintball.GetComponent<Rigidbody>().AddForce(tempPaintball.transform.forward * shootingForce);
+        //    Destroy(tempPaintball, 5f);
+        //    shotCounterScript.shotsFired++;
+        //}
+    }
+
+    void Interaction()
+    {
+        GameObject tempPaintball = Instantiate(paintballPrefab, spawnPoint.position, spawnPoint.rotation);
+        tempPaintball.GetComponent<Rigidbody>().AddForce(tempPaintball.transform.forward * shootingForce);
+        Destroy(tempPaintball, 5f);
+        shotCounterScript.shotsFired++;
     }
 }
