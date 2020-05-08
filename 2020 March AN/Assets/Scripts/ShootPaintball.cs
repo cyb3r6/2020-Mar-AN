@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootPaintball : MonoBehaviour
+public class ShootPaintball : GrabbableObjectSimHand
 {
     public GameObject paintballPrefab;
     public Transform spawnPoint;
     public float shootingForce;
     public ShotCounter shotCounterScript;
+    //public SimHandGrab simHandController;
+    //private GrabbableObjectSimHand grabbableObjectSimHand;
 
-    void Update()
+    //private void Awake()
+    //{
+    //    grabbableObjectSimHand = GetComponent<GrabbableObjectSimHand>();
+    //}
+
+    private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.Mouse0))
         //{
@@ -18,6 +25,14 @@ public class ShootPaintball : MonoBehaviour
         //    Destroy(tempPaintball, 5f);
         //    shotCounterScript.shotsFired++;
         //}
+
+        if(isBeingHeld == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Interaction();
+            }
+        }
     }
 
     void Interaction()

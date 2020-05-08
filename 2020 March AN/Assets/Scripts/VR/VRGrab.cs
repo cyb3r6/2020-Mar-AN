@@ -9,6 +9,7 @@ public class VRGrab : MonoBehaviour
     public Transform snapPosition;
 
     public bool gripHeld;
+    public bool triggerHeld;
 
     private VRInput controller;
     
@@ -42,6 +43,21 @@ public class VRGrab : MonoBehaviour
                 Release();
             }
         }
+
+        #region Using BroadcastMessage
+
+        if(controller.triggerValue > 0.8f && !triggerHeld && heldObject)
+        {
+            heldObject.BroadcastMessage("Interaction");
+            triggerHeld = true;
+        }
+        else if(controller.triggerValue < 0.8f && triggerHeld)
+        {
+            triggerHeld = false;
+        }
+
+
+        #endregion
     }
 
     private void OnTriggerEnter(Collider other)

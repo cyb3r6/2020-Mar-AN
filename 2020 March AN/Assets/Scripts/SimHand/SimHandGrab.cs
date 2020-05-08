@@ -10,6 +10,8 @@ public class SimHandGrab : MonoBehaviour
 
     public bool isButtonPressed;        // switched on/off when we have a heldobject and we're triggering a behavior
 
+
+
     private void OnTriggerEnter(Collider other)
     {
         collidingObject = other.gameObject;
@@ -47,7 +49,7 @@ public class SimHandGrab : MonoBehaviour
 
         if(heldObject && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            heldObject.BroadcastMessage("Interaction");
+            //heldObject.BroadcastMessage("Interaction");
             isButtonPressed = true;
         }
         if (heldObject && Input.GetKeyUp(KeyCode.Mouse0))
@@ -58,17 +60,75 @@ public class SimHandGrab : MonoBehaviour
 
     public void Grab()
     {
-        heldObject.transform.SetParent(this.snapPosition);
-        heldObject.GetComponent<Rigidbody>().isKinematic = true;
-        heldObject.transform.localPosition = Vector3.zero;
+        heldObject.transform.SetParent(this.transform);
+        heldObject.transform.localPosition += heldObject.GetComponent<GrabbableObjectSimHand>().grabOffset;
         heldObject.transform.rotation = snapPosition.rotation;
+        heldObject.GetComponent<Rigidbody>().isKinematic = true;
+
+        #region Using GetComponent
+
+        var grabbable = heldObject.GetComponent<GrabbableObjectSimHand>();
+        if (grabbable)
+        {
+            grabbable.hand = this.gameObject;
+            grabbable.isBeingHeld = true;
+            grabbable.simHandController = this;
+        }
+
+        #endregion
+
     }
 
     public void Release()
     {
+        #region Using GetComponent
+
+        var grabbable = heldObject.GetComponent<GrabbableObjectSimHand>();
+        if (grabbable)
+        {
+            grabbable.hand = null;
+            grabbable.isBeingHeld = false;
+            grabbable.simHandController = null;
+        }
+
+        #endregion
+
         heldObject.GetComponent<Rigidbody>().isKinematic = false;
+        heldObject.transform.localPosition -= heldObject.GetComponent<GrabbableObjectSimHand>().grabOffset;
         heldObject.transform.SetParent(null);
         heldObject = null;
+       
     }
 
+    private void AdvGrab()
+    {
+        FixedJoint fixJoint = gameObject.AddComponent<FixedJoint>();
+        fixJoint.breakForce = 2000;
+        fixJoint.breakTorque = 2000;
+        heldObject.transform.position = this.transform.position;
+        heldObject.transform.rotation = this.transform.rotation;
+        fixJoint.connectedBody = heldObject.GetComponent<Rigidbody>();
+
+        #region Using GetComponent
+
+        var grabbable = heldObject.GetComponent<GrabbableObjectSimHand>();
+        if (grabbable)
+        {
+            grabbable.hand = this.gameObject;
+            grabbable.isBeingHeld = true;
+            grabbable.simHandController = this;
+        }
+
+        #endregion
+
+    }
+
+    private void AdvRelease()
+    {
+        if (GetComponent<FixedJoint>())
+        {
+            Destroy(GetComponent<FixedJoint>());
+
+        }
+    }
 }
