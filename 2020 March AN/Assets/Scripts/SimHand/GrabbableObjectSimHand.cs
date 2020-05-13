@@ -7,7 +7,5 @@ public class GrabbableObjectSimHand : MonoBehaviour
     public GameObject hand;
     public SimHandGrab simHandController;
     public bool isBeingHeld;
-
-    public Vector3 grabOffset = Vector3.zero;
-        
+    public Vector3 grabOffset = Vector3.zero;        
 }

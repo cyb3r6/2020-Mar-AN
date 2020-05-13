@@ -9,8 +9,11 @@ public class SimHandGrab : MonoBehaviour
     public Transform snapPosition;
 
     public bool isButtonPressed;        // switched on/off when we have a heldobject and we're triggering a behavior
-
-
+    public float throwForce;
+    private Vector3 handVelocity;
+    private Vector3 previousPosition;
+    private Vector3 handAngularVelocity;
+    private Vector3 previousAngularRotation;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,7 +37,8 @@ public class SimHandGrab : MonoBehaviour
             if(collidingObject && collidingObject.GetComponent<Rigidbody>())
             {
                 heldObject = collidingObject;
-                Grab();
+                //Grab();
+                AdvGrab();
             }
         }
 
@@ -43,7 +47,8 @@ public class SimHandGrab : MonoBehaviour
             // do the release
             if (heldObject)
             {
-                Release();
+                //Release();
+                AdvRelease();
             }
         }
 
@@ -56,12 +61,21 @@ public class SimHandGrab : MonoBehaviour
         {
             isButtonPressed = false;
         }
+
+        handVelocity = (this.transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = this.transform.position;
+
+        handAngularVelocity = (this.transform.eulerAngles - previousAngularRotation) / Time.deltaTime;
+        previousAngularRotation = this.transform.eulerAngles;
     }
 
     public void Grab()
     {
         heldObject.transform.SetParent(this.transform);
-        heldObject.transform.localPosition += heldObject.GetComponent<GrabbableObjectSimHand>().grabOffset;
+        if (heldObject.GetComponent<GrabbableObjectSimHand>())
+        {
+            heldObject.transform.localPosition += heldObject.GetComponent<GrabbableObjectSimHand>().grabOffset;
+        }        
         heldObject.transform.rotation = snapPosition.rotation;
         heldObject.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -94,10 +108,12 @@ public class SimHandGrab : MonoBehaviour
         #endregion
 
         heldObject.GetComponent<Rigidbody>().isKinematic = false;
-        heldObject.transform.localPosition -= heldObject.GetComponent<GrabbableObjectSimHand>().grabOffset;
+        //heldObject.transform.localPosition -= heldObject.GetComponent<GrabbableObjectSimHand>().grabOffset;
         heldObject.transform.SetParent(null);
+        heldObject.GetComponent<Rigidbody>().velocity = handVelocity * throwForce;
+        heldObject.GetComponent<Rigidbody>().angularVelocity = handAngularVelocity * throwForce;
         heldObject = null;
-       
+               
     }
 
     private void AdvGrab()
@@ -127,8 +143,23 @@ public class SimHandGrab : MonoBehaviour
     {
         if (GetComponent<FixedJoint>())
         {
+            #region Using GetComponent
+
+            var grabbable = heldObject.GetComponent<GrabbableObjectSimHand>();
+            if (grabbable)
+            {
+                grabbable.hand = null;
+                grabbable.isBeingHeld = false;
+                grabbable.simHandController = null;
+            }
+
+            #endregion
+
             Destroy(GetComponent<FixedJoint>());
 
+            heldObject.GetComponent<Rigidbody>().velocity = handVelocity * throwForce;
+            heldObject.GetComponent<Rigidbody>().angularVelocity = handAngularVelocity * throwForce;
         }
+        heldObject = null;
     }
 }

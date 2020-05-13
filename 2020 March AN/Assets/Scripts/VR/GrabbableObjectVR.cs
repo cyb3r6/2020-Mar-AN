@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class GrabbableObjectVR : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public VRInput controller;
+    public GameObject hand;
+    public bool isBeingHeld;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
