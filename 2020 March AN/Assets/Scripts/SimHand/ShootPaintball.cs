@@ -35,7 +35,7 @@ public class ShootPaintball : GrabbableObjectSimHand
         }
     }
 
-    void Interaction()
+    public void Interaction()
     {
         GameObject tempPaintball = Instantiate(paintballPrefab, spawnPoint.position, spawnPoint.rotation);
         tempPaintball.GetComponent<Rigidbody>().AddForce(tempPaintball.transform.forward * shootingForce);
