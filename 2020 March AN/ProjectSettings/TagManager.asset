@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Paintable
   - Chaser
+  - SpringButton
   layers:
   - Default
   - TransparentFX
