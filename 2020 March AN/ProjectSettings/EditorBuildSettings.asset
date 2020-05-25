@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ARTapToPlace.unity
     guid: d97d0e270bec9c845a5a66968f9dfeef
+  - enabled: 1
+    path: Assets/Scenes/ARUtility.unity
+    guid: e2bfb6b43c12da446ba02bc3f5ddc3b1
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ec4752be88eb0ad4297de967ea021731,
       type: 2}
