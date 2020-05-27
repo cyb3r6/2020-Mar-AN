@@ -11,6 +11,13 @@ public class VRGrab : MonoBehaviour
     public bool gripHeld;
     public bool triggerHeld;
 
+    public float throwForce;
+
+    private Vector3 handVelocity;
+    private Vector3 previousPosition;
+    private Vector3 handAngularVelocity;
+    private Vector3 previousAngularRotation;
+
     private VRInput controller;
     
     void Start()
@@ -29,8 +36,8 @@ public class VRGrab : MonoBehaviour
             if (collidingObject && collidingObject.GetComponent<Rigidbody>())
             {
                 heldObject = collidingObject;
-                Grab();
-                
+                //Grab();
+                AdvGrab();
             }
         }
         else if(controller.gripValue < 0.8f && gripHeld == true)
@@ -40,7 +47,8 @@ public class VRGrab : MonoBehaviour
             // do the release
             if (heldObject)
             {
-                Release();
+                //Release();
+                AdvRelease();
             }
         }
 
@@ -48,7 +56,7 @@ public class VRGrab : MonoBehaviour
 
         if(controller.triggerValue > 0.8f && !triggerHeld && heldObject)
         {
-            heldObject.BroadcastMessage("Interaction");
+            //heldObject.BroadcastMessage("Interaction");
             triggerHeld = true;
         }
         else if(controller.triggerValue < 0.8f && triggerHeld)
@@ -56,8 +64,13 @@ public class VRGrab : MonoBehaviour
             triggerHeld = false;
         }
 
-
         #endregion
+
+        handVelocity = (this.transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = this.transform.position;
+
+        handAngularVelocity = (this.transform.eulerAngles - previousAngularRotation) / Time.deltaTime;
+        previousAngularRotation = this.transform.eulerAngles;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,4 +133,48 @@ public class VRGrab : MonoBehaviour
     }
 
     // Using Fixed Joints
+    private void AdvGrab()
+    {
+        FixedJoint fixJoint = gameObject.AddComponent<FixedJoint>();
+        fixJoint.breakForce = 2000;
+        fixJoint.breakTorque = 2000;
+        fixJoint.connectedBody = heldObject.GetComponent<Rigidbody>();
+
+        #region Using GetComponent
+
+        var grabbable = heldObject.GetComponent<GrabbableObjectVR>();
+        if (grabbable)
+        {
+            grabbable.hand = this.gameObject;
+            grabbable.isBeingHeld = true;
+            grabbable.controller = controller;
+        }
+
+        #endregion
+
+    }
+
+    private void AdvRelease()
+    {
+        if (GetComponent<FixedJoint>())
+        {
+            #region Using GetComponent
+
+            var grabbable = heldObject.GetComponent<GrabbableObjectVR>();
+            if (grabbable)
+            {
+                grabbable.hand = null;
+                grabbable.isBeingHeld = false;
+                grabbable.controller = null;
+            }
+
+            #endregion
+
+            Destroy(GetComponent<FixedJoint>());
+
+            heldObject.GetComponent<Rigidbody>().velocity = handVelocity * throwForce;
+            heldObject.GetComponent<Rigidbody>().angularVelocity = handAngularVelocity * throwForce;
+        }
+        heldObject = null;
+    }
 }
